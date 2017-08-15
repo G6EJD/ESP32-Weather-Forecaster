@@ -20,6 +20,7 @@ boolean Adafruit_BMP085::begin(uint8_t mode) {
   if (mode > BMP085_ULTRAHIGHRES) 
     mode = BMP085_ULTRAHIGHRES;
   oversampling = mode;
+
 　//Wire.begin(); //***************** Comment out
 
 Adafruit_BME280 library, edit the file Adafruit_BME280.CPP and comment out the wire.begin statement:
@@ -29,6 +30,7 @@ bool Adafruit_BME280::begin(uint8_t           addr)
 　  // init I2C or SPI sensor interface
     if (_cs == -1) {
         // I2C
+
         //Wire.begin(); //***************** Comment out
 
 
