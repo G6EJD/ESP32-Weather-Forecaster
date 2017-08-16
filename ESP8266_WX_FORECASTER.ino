@@ -209,7 +209,7 @@ void drawFrame2(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int1
   weather_description wx_text = get_forecast_text(reading[23].pressure, trend, look_3hr); // Convert to forecast text based on 3-hours
   ForecastToImgTxt(wx_text);                                                              // Display corresponding text
   display->setFont(ArialMT_Plain_16);
-  display->drawStringMaxWidth(x+0,y+10,127,weather_text);
+  display->drawStringMaxWidth(x+0,y+10,127,weather_text+weather_extra_text);
   display->setFont(ArialMT_Plain_10);
 }
 
@@ -268,7 +268,7 @@ void drawFrame5(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int1
   ForecastToImgTxt(wx_text);
   display->drawString(x+0,y+10,"Short-term forecast:");
   display->setFont(ArialMT_Plain_16);
-  display->drawStringMaxWidth(x+0,y+18,127,weather_text);
+  display->drawStringMaxWidth(x+0,y+18,127,weather_text+weather_extra_text);
   display->setFont(ArialMT_Plain_10);
 }
 
@@ -311,6 +311,7 @@ void ForecastToImgTxt(weather_description wx_text){
 weather_description get_forecast_text(float pressure_now, float trend, bool range) {
   String trend_str = get_trend_text(trend);
   weather_description wx_text = NoChange; //As a default forecast 
+  weather_extra_text = "";
   image = cloudy_img; // Generally when there is 'no change' then cloudy is the conditions
   if (pressure_now >= 1022.68 )                                                          {wx_text = GoodClearWeather;}
   if (pressure_now >= 1022.7  && trend_str  == "Falling fast")                           {wx_text = WarmerRainWithin36hrs;}
@@ -319,8 +320,7 @@ weather_description get_forecast_text(float pressure_now, float trend, bool rang
   if (pressure_now >= 1013.2 && pressure_now <= 1022.68 &&
      (trend_str == "Rising" || trend_str == "Rising fast"))                              {wx_text = GettingWarmer;}
   if (pressure_now >= 1013.2 && pressure_now <= 1022.68 && trend_str == "Rising slow")   {wx_text = BecomingClearer;}
-  if (pressure_now >= 1013.2 && pressure_now <= 1022.68 && 
-     (trend_str == "Falling slow" || trend_str == "Falling fast"))                       {wx_text = ExpectRain;}
+  if (pressure_now >= 1013.2 && pressure_now <= 1022.68 && trend_str == "Falling fast")  {wx_text = ExpectRain;}
   if (pressure_now >= 1013.2 && pressure_now <= 1022.68 && trend_str  == "Steady")       {wx_text = ClearSpells; (range?wx_history_3hr():wx_history_1hr());};
   if (pressure_now <= 1013.2 && (trend_str == "Falling slow" || trend_str == "Falling")) {wx_text = RainIn18hrs;}
   if (pressure_now <= 1013.2  &&  trend_str == "Falling fast")                           {wx_text = RainHighWindsClearAndCool;}
