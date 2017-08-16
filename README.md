@@ -12,7 +12,9 @@ The code works equally well on an ESP8266 provided the time source is adjusted.
 
 Change the code to suit your sensor either a BMP085 (now obsolete) or BMP180 or the three parameter and highly accurate BME280.
 
-NOTE:
+NOTES:
+Adjust time like this: configTime(1*3600, 3600, "pool.ntp.org"); // +1hour (1*60*60=3600=+1hour) ahead for DST in the UK
+
 The Adafruit_BMP085 or Adafruit_BME280 libraries won't compile when using the ESP32 board, however you can either use the versions I've uploaded or edit the follwing lines to comment out the wire.begin() statements, then they work OK, enabling you to define with Wire.begin(SDA,SCL) the pins to be used on the ESP32 device.
 
 Adafruit_BMP085 library, edit the file Adafruit_BMP085.CPP and comment out the wire.begin statement:
