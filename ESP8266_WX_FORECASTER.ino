@@ -320,7 +320,8 @@ weather_description get_forecast_text(float pressure_now, float trend, bool rang
   if (pressure_now >= 1013.2 && pressure_now <= 1022.68 &&
      (trend_str == "Rising" || trend_str == "Rising fast"))                              {wx_text = GettingWarmer;}
   if (pressure_now >= 1013.2 && pressure_now <= 1022.68 && trend_str == "Rising slow")   {wx_text = BecomingClearer;}
-  if (pressure_now >= 1013.2 && pressure_now <= 1022.68 && trend_str == "Falling fast")  {wx_text = ExpectRain;}
+  if (pressure_now >= 1013.2 && pressure_now <= 1022.68 &&
+     (trend_str == "Falling fast" || trend_str == "Falling slow"))                       {wx_text = ExpectRain;}
   if (pressure_now >= 1013.2 && pressure_now <= 1022.68 && trend_str  == "Steady")       {wx_text = ClearSpells; (range?wx_history_3hr():wx_history_1hr());};
   if (pressure_now <= 1013.2 && (trend_str == "Falling slow" || trend_str == "Falling")) {wx_text = RainIn18hrs;}
   if (pressure_now <= 1013.2  &&  trend_str == "Falling fast")                           {wx_text = RainHighWindsClearAndCool;}
