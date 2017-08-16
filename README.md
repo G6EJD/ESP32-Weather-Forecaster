@@ -1,4 +1,4 @@
-# ESP32-Weather-Forecaster
+# ESP32/ESP8266-Weather-Forecaster
 
 Using an ESP32 to read air pressure from either a BMP085/180
 or BME280 enables the weather to be forecasted using a set of rules based on
@@ -7,6 +7,8 @@ and then by monitoring changes over time weather can be predicted with a good
 level of certainty.
 
 Two versions are provided one for a 1.3" OLED display and the SH1106 driver and one for the 0.96" OLED display and SSD1306 Driver.
+
+The ESP8266 version requires you to select the display and sensor type accordingly, currently configuraed for the 1.3" SH1106 type display and BME280 sensor.
 
 The code works equally well on an ESP8266 provided the time source is adjusted.
 
