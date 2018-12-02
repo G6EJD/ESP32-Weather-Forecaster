@@ -459,6 +459,7 @@ bool update_time(){
 int StartWiFi(const char* ssid, const char* password){
   int connAttempts = 0;
   Serial.println("\r\nConnecting to: "+String(ssid));
+  WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED ) {
     delay(500);
