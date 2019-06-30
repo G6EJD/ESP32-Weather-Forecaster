@@ -28,7 +28,7 @@
 #define icon_height 40
 
 // Define each of the *icons for display
-const char rain_icon[] PROGMEM = {
+const unsigned char rain_icon[] PROGMEM = {
   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
   0x81, 0xFF, 0xFF, 0xFF, 0x3F, 0x04, 0xFE, 0xFF, 0xFF, 0xDF, 0xF0, 0xFC, 
   0xFF, 0xFF, 0xE7, 0xFF, 0xFB, 0xFF, 0xFF, 0xFB, 0xFF, 0xF3, 0xFF, 0xFF, 
@@ -47,7 +47,7 @@ const char rain_icon[] PROGMEM = {
   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
-const char sunny_icon[] PROGMEM = {
+const unsigned char sunny_icon[] PROGMEM = {
   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xE3, 0xFF, 0xFF, 0xFF, 0xFF, 
   0xE3, 0xFF, 0xFF, 0xFF, 0xFF, 0xE3, 0xFF, 0xFF, 0xFF, 0xFF, 0xE3, 0xFF, 
   0xFF, 0xFF, 0xFF, 0xE3, 0xFF, 0xFD, 0xDF, 0xFF, 0xE3, 0xFF, 0xF8, 0x8F, 
@@ -66,7 +66,7 @@ const char sunny_icon[] PROGMEM = {
   0xFF, 0xFF, 0xE3, 0xFF, 0xFF, 0xFF, 0xFF, 0xE3, 0xFF, 0xFF, 0xFF, 0xFF, 
   0xE3, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
-const char mostlysunny_icon[] PROGMEM = {
+const unsigned char mostlysunny_icon[] PROGMEM = {
   0xFF, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0xFE, 0xFF, 0xFF, 0xFD, 0x7E, 
   0xFF, 0xFF, 0xFF, 0xFB, 0xBF, 0xEF, 0xFF, 0xFF, 0x17, 0xE0, 0xF7, 0xFF, 
   0xFF, 0xCF, 0x9F, 0xF9, 0xFF, 0xFF, 0xE6, 0x3F, 0xFD, 0xFF, 0xFF, 0xF5, 
@@ -85,7 +85,7 @@ const char mostlysunny_icon[] PROGMEM = {
   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
   
-const char cloudy_icon[] PROGMEM = {
+const unsigned char cloudy_icon[] PROGMEM = {
   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -104,7 +104,7 @@ const char cloudy_icon[] PROGMEM = {
   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
-const char tstorms_icon[] PROGMEM = {
+const unsigned char tstorms_icon[] PROGMEM = {
   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
   0x81, 0xFF, 0xFF, 0xFF, 0x3F, 0x04, 0xFE, 0xFF, 0xFF, 0xDF, 0xF0, 0xFC, 
   0xFF, 0xFF, 0xE7, 0xFF, 0xFB, 0xFF, 0xFF, 0xFB, 0xFF, 0xF3, 0xFF, 0xFF, 
@@ -313,22 +313,26 @@ weather_description get_forecast_text(float pressure_now, float trend, bool rang
   weather_description wx_text = NoChange; //As a default forecast 
   weather_extra_text = "";
   image = cloudy_img; // Generally when there is 'no change' then cloudy is the conditions
-  if (pressure_now >= 1022.68 )                                                          {wx_text = GoodClearWeather;}
-  if (pressure_now >= 1022.7  && trend_str  == "Falling fast")                           {wx_text = WarmerRainWithin36hrs;}
+  if (pressure_now >= 1022.68 )                                                           {wx_text = GoodClearWeather;}
+  if (pressure_now >= 1022.7  && trend_str  == "Falling fast")                            {wx_text = WarmerRainWithin36hrs;}
+
   if (pressure_now >= 1013.2  && pressure_now <= 1022.68 && 
-     (trend_str == "Steady" || trend_str == "Rising slow"))                              {wx_text = NoChange; (range?wx_history_3hr():wx_history_1hr()); }
+     (trend_str == "Steady" || trend_str == "Rising slow"))                               {wx_text = NoChange; (range?wx_history_3hr():wx_history_1hr()); }
   if (pressure_now >= 1013.2 && pressure_now <= 1022.68 &&
-     (trend_str == "Rising" || trend_str == "Rising fast"))                              {wx_text = GettingWarmer;}
-  if (pressure_now >= 1013.2 && pressure_now <= 1022.68 && trend_str == "Rising slow")   {wx_text = BecomingClearer;}
-  if (pressure_now >= 1013.2 && pressure_now <= 1022.68 &&
-     (trend_str == "Falling fast" || trend_str == "Falling slow"))                       {wx_text = ExpectRain;}
-  if (pressure_now >= 1013.2 && pressure_now <= 1022.68 && trend_str  == "Steady")       {wx_text = ClearSpells; (range?wx_history_3hr():wx_history_1hr());};
-  if (pressure_now <= 1013.2 && (trend_str == "Falling slow" || trend_str == "Falling")) {wx_text = RainIn18hrs;}
-  if (pressure_now <= 1013.2  &&  trend_str == "Falling fast")                           {wx_text = RainHighWindsClearAndCool;}
+     (trend_str == "Rising" || trend_str == "Rising fast"))                               {wx_text = GettingWarmer;}
+  if (pressure_now >= 1013.2 && pressure_now <= 1022.68 && trend_str == "Rising slow")    {wx_text = BecomingClearer;}
+
+  if (pressure_now >= 1013.2  && pressure_now <= 1022.68 &&
+     (trend_str == "Falling fast" || trend_str == "Falling slow"))                        {wx_text = ExpectRain;}
+  if (pressure_now <= 1013.2  && (trend_str == "Falling slow" || trend_str == "Falling")) {wx_text = RainIn18hrs;}
+  if (pressure_now >= 1013.2  && pressure_now <= 1022.68 && trend_str == "Falling fast")  {wx_text = ExpectRain;}
+  if (pressure_now <= 1013.2  && trend_str == "Falling fast")                             {wx_text = RainHighWindsClearAndCool;}
+  if (pressure_now <= 1009.14 && trend_str == "Falling fast")                             {wx_text = GalesHeavyRainSnowInWinter;}
   if (pressure_now <= 1013.2  && 
-     (trend_str == "Rising" || trend_str=="Rising slow"||trend_str=="Rising fast"))      {wx_text = ClearingWithin12hrs;}
-  if (pressure_now <= 1009.14 && trend_str  == "Falling fast")                           {wx_text = GalesHeavyRainSnowInWinter;}
-  if (pressure_now <= 1009.14 && trend_str  == "Rising fast")                            {wx_text = ClearingAndColder;}
+     (trend_str == "Rising" || trend_str == "Rising slow" || trend_str=="Rising fast"))   {wx_text = ClearingWithin12hrs;}
+  if (pressure_now >= 1013.2 && pressure_now <= 1022.68 && trend_str  == "Steady")        {wx_text = ClearSpells; (range?wx_history_3hr():wx_history_1hr());};
+
+  if (pressure_now <= 1009.14 && trend_str  == "Rising fast")                             {wx_text = ClearingAndColder;}
   return wx_text;
 }
 
@@ -459,7 +463,6 @@ bool update_time(){
 int StartWiFi(const char* ssid, const char* password){
   int connAttempts = 0;
   Serial.println("\r\nConnecting to: "+String(ssid));
-  WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED ) {
     delay(500);
