@@ -15,8 +15,8 @@
  * See more at http://dsbird.org.uk
 */
 
-#include "SH1106.h"        //https://github.com/ThingPulse/esp8266-oled-ssd1306
-#include "OLEDDisplayUi.h" //https://github.com/ThingPulse/esp8266-oled-ssd1306
+#include "SH1106.h"        //https://github.com/ThingPulse/esp8266-oled-sht1106
+#include "OLEDDisplayUi.h" //https://github.com/ThingPulse/esp8266-oled-sht1106
 #include <WiFi.h>
 #include "time.h"
 #include <Wire.h>
